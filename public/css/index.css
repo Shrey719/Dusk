@@ -1,0 +1,11 @@
+body {
+    background-image: url("/img/background.svg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background-color: rgb(30, 36, 30)
+
+}
