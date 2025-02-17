@@ -8,7 +8,7 @@ function StartMenu() {
                     position: fixed;
                     bottom: 0;
                     left: 0;
-                    width: 20vw;
+                    width: 30vw;
                     height: 50vh;
                     display: hidden;
                     margin-bottom: 7vh;
