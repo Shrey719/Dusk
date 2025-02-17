@@ -14,7 +14,9 @@ self.addEventListener('fetch', (event) => {
 		//url.search==params
         event.respondWith(
             new Response(
-                `<html><script>${url.search.substring(3)}</script></html>`, // really hacky but it works
+                `<html>
+                    <script>${decodeURIComponent(url.search.substring(1))}</script>
+                </html>`, // really hacky but it works
                 {
                     headers: { 'Content-Type': 'text/html' }
                 }
