@@ -6,7 +6,7 @@ function StartMenu() {
                 .startMenu {
                     background-color: rgba(100, 100, 100, 0.5);
                     position: fixed;
-                    bottom: 0; 
+                    bottom: 0;
                     left: 0;
                     width: 20vw;
                     height: 50vh;
@@ -18,7 +18,7 @@ function StartMenu() {
             `}
         </style>
         <div class="startMenu" id="startMenu">
-
+			<div class="recentApps" id="recentApps"></div>
         </div>
         </>
     )

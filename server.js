@@ -4,7 +4,7 @@ import wisp from 'wisp-server-node'
 import http from 'node:http'
 import path from 'node:path'
 import { build } from 'vite'
-import type { Socket } from 'node:net'
+import { Socket } from 'node:net'
 
 const httpServer = http.createServer()
 
@@ -26,7 +26,7 @@ httpServer.on('request', (req, res) => {
 
 httpServer.on('upgrade', (req, socket, head) => {
   if (req.url?.startsWith('/wisp/')) {
-    wisp.routeRequest(req, socket as Socket, head)
+    wisp.routeRequest(req, socket, head)
   } else {
     socket.end()
   }
