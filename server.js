@@ -16,7 +16,7 @@ await build()
 
 app.use(express.static('dist'))
 
-app.get('*', (_req, res) => {
+app.get('/', (_req, res) => {
   res.sendFile(path.resolve('dist', 'index.html'))
 })
 
