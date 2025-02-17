@@ -1,47 +1,89 @@
 function createProcess(code, pid) {
-    if (document.getElementById(pid)) {
-        console.log('Process with pid ' + pid + ' already exists.')
+    const containerId = `container-${pid}`;
+    if (document.getElementById(containerId)) {
+        console.log(`Process with pid ${pid} already exists.`);
         return;
     }
-    let procframe = document.createElement('iframe')
-    procframe.style.border = 'none'
-    procframe.style.width = '100%'
-    procframe.style.height = '30vh'
-    procframe.src = '/js/fcreator?' + encodeURIComponent(code)
-    procframe.id = 'process-' + pid
 
-    let container = document.createElement('div')
-    container.style.width = '30vw'
-    container.style.position = 'absolute'
-    container.appendChild(procframe)
+    const container = document.createElement('div');
+    container.id = containerId;
+    container.style.width = '30vw';
+    container.style.position = 'absolute';
 
-    let handle = document.createElement('div')
-    let closeBtn = document.createElement('button')
-    let minBtn = document.createElement('button')
-    let maxBtn = document.createElement('button')
-    closeBtn.textContent = 'x'
-    minBtn.textContent = '-'
-    maxBtn.textContent = '+'
-    maxBtn.style.backgroundColor = 'transparent'
-    closeBtn.style.backgroundColor = 'transparent'
-    minBtn.style.backgroundColor = 'transparent'
+    const handle = createHandle(pid);
+    container.appendChild(handle);
 
-    handle.appendChild(closeBtn)
-    handle.appendChild(minBtn)
-    handle.appendChild(maxBtn)
-    handle.style.width = '100%'
-    handle.style.height = '20px'
-    handle.style.backgroundColor = '#ddd'
-    handle.style.cursor = 'move'
-    handle.style.userSelect = 'none' // Prevent text selection on double click
-    container.insertBefore(handle, procframe)
+    const procframe = createProcessFrame(code, pid);
+    container.appendChild(procframe);
 
-    document.body.appendChild(container)
-    makeDraggable(container, handle)
+    document.body.appendChild(container);
+    makeDraggable(container, handle);
 }
 
+function createHandle(pid) {
+    const handle = document.createElement('div');
+    handle.style.width = '100%';
+    handle.style.height = '20px';
+    handle.style.backgroundColor = '#ddd';
+    handle.style.cursor = 'move';
+    handle.style.userSelect = 'none';
 
-// as chatgpt i cannot work on shit code please try agin latr
+    const closeBtn = createButton('x', () => killProcess(pid));
+    const minBtn = createButton('-', () => minimizeProcess(pid));
+    const maxBtn = createButton('+', () => maximizeProcess(pid));
+
+    handle.appendChild(closeBtn);
+    handle.appendChild(minBtn);
+    handle.appendChild(maxBtn);
+
+    return handle;
+}
+
+function createButton(text, onClick) {
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.style.backgroundColor = 'transparent';
+    button.onclick = onClick;
+    return button;
+}
+
+function createProcessFrame(code, pid) {
+    const procframe = document.createElement('iframe');
+    procframe.style.border = 'none';
+    procframe.style.width = '100%';
+    procframe.style.height = '30vh';
+    procframe.src = '/js/fcreator?' + encodeURIComponent(code);
+    procframe.id = `process-${pid}`;
+    return procframe;
+}
+
+function killProcess(pid) {
+    const container = document.getElementById(`container-${pid}`);
+    if (container) {
+        container.remove();
+    } else {
+        console.log(`Process with pid ${pid} does not exist.`);
+    }
+}
+
+function minimizeProcess(pid) {
+    const container = document.getElementById(`container-${pid}`);
+    if (container) {
+        const procframe = container.querySelector(`#process-${pid}`);
+        if (procframe) {
+            procframe.style.display = procframe.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+}
+
+function maximizeProcess(pid) {
+    const container = document.getElementById(`container-${pid}`);
+    if (container) {
+        container.style.width = '90vw';
+        container.style.height = '100vh';
+    }
+}
+
 function makeDraggable(element, handle) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     handle.onmousedown = dragMouseDown;
