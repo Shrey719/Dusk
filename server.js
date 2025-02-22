@@ -4,7 +4,6 @@ import wisp from 'wisp-server-node'
 import http from 'node:http'
 import path from 'node:path'
 import { build } from 'vite'
-import { Socket } from 'node:net'
 
 const httpServer = http.createServer()
 
@@ -19,7 +18,9 @@ app.use(express.static('dist'))
 app.get('/', (_req, res) => {
   res.sendFile(path.resolve('dist', 'index.html'))
 })
-
+app.get('/sh', (_req, res) => {
+  res.sendFile(path.resolve('dist/apps','sh.html'))
+})
 httpServer.on('request', (req, res) => {
   app(req, res)
 })

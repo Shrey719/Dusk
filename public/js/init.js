@@ -16,7 +16,7 @@ window.$dusk = {
 }
 
 function pushApp(name, icon, code) {
-    $dusk.globalPid++;
+    window.$dusk.globalPid++;
     const app = document.createElement('div');
     app.className = 'start-menu-app';
     
@@ -32,10 +32,9 @@ function pushApp(name, icon, code) {
     app.appendChild(iconElement);
     app.appendChild(nameElement);
 
-    app.addEventListener('click', () => createProcess(code, $dusk.globalPid));
+    app.addEventListener('click', () => createProcess(code, window.$dusk.globalPid++));
     document.getElementById('startMenuApps').appendChild(app);
 }
-
 window.initStartMenu = function() {
     const startMenuApps = document.getElementById('startMenuApps');
     if (startMenuApps) {

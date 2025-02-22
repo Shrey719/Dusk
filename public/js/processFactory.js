@@ -39,7 +39,7 @@ function createHandle(pid) {
     return handle;
 }
 
-// this does not need to be a function but i.. dont care?
+// WHY THE FYCK DID I DO THIS??
 function createButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
