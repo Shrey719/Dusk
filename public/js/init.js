@@ -3,9 +3,10 @@ if (localStorage.getItem('appList') === null) {
         name: 'Terminal',
         icon: '/img/sh.svg',
         code: `<html><body><iframe src="/sh" height="100%" width="100%" style="border: none; margin: 0; padding: 0;"></iframe><body><head>
-                html, body {
+                * {
                     margin: 0;
                     padding: 0;
+                    border: none;
                 }
         </head></html>`
     }]));

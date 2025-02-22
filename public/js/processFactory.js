@@ -80,11 +80,53 @@ function minimizeProcess(pid) {
 function maximizeProcess(pid) {
     const container = document.getElementById(`container-${pid}`);
     if (container) {
-        container.style.width = '90vw';
-        container.style.textAlign = 'center';
-        container.style.height = '100vh';
+        // keep the dimensions for unfullscreening and probably other stuff later
+        container.dataset.originalStyle = container.getAttribute('style');
+
+        container.style.width = "100vw";
+        container.style.height = "100vh";
+        container.style.position = "fixed";
+        container.style.top = "0";
+        container.style.left = "0";
+        container.style.zIndex = "9999";
+        container.style.padding = "0";
+        container.style.margin = "0";
+        container.style.backgroundColor = "#000";
+
+        const processFrame = document.getElementById(`process-${pid}`);
+        if (processFrame) {
+            processFrame.style.height = "100%";
+            processFrame.style.width = "100%";
+        }
+
+        // if i add another div i get fucked... so i wont add another div
+        const handle = container.querySelector('div');
+        if (handle) {
+            handle.style.cursor = 'default';
+            handle.onmousedown = null;
+        }
+
+        // if esc pressed, leave fullscreen
+        // jmp to restoreProcess
+        function exitFullscreen(e) {
+            if (e.key === 'Escape') {
+                restoreProcess(pid);
+                document.removeEventListener('keydown', exitFullscreen);
+            }
+        }
+        document.addEventListener('keydown', exitFullscreen);
     }
 }
+
+function restoreProcess(pid) {
+    const container = document.getElementById(`container-${pid}`);
+    if (container && container.dataset.originalStyle) {
+        container.setAttribute('style', container.dataset.originalStyle);
+        delete container.dataset.originalStyle;
+    }
+}
+
+
 
 function makeDraggable(element, handle) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
