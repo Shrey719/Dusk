@@ -23,7 +23,6 @@ function createProcess(code, pid) {
 function createHandle(pid) {
     const handle = document.createElement('div');
     handle.style.width = '100%';
-    handle.style.height = '20px';
     handle.style.backgroundColor = '#ddd';
     handle.style.cursor = 'move';
     handle.style.userSelect = 'none';
@@ -32,6 +31,7 @@ function createHandle(pid) {
     const minBtn = createButton('-', () => minimizeProcess(pid));
     const maxBtn = createButton('+', () => maximizeProcess(pid));
 
+    handle.height = closeBtn.height = minBtn.height = maxBtn.height = '2vh';
     handle.appendChild(closeBtn);
     handle.appendChild(minBtn);
     handle.appendChild(maxBtn);
@@ -39,6 +39,7 @@ function createHandle(pid) {
     return handle;
 }
 
+// this does not need to be a function but i.. dont care?
 function createButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
@@ -52,7 +53,10 @@ function createProcessFrame(code, pid) {
     procframe.style.border = 'none';
     procframe.style.width = '100%';
     procframe.style.height = '30vh';
+    procframe.style.margin = '0';
+    // hacky bullshit
     procframe.src = '/js/fcreator?' + encodeURIComponent(code);
+    // fuck it im not even trying anymore
     procframe.id = `process-${pid}`;
     return procframe;
 }
@@ -69,10 +73,7 @@ function killProcess(pid) {
 function minimizeProcess(pid) {
     const container = document.getElementById(`container-${pid}`);
     if (container) {
-        const procframe = container.querySelector(`#process-${pid}`);
-        if (procframe) {
-            procframe.style.display = procframe.style.display === 'none' ? 'block' : 'none';
-        }
+        container.style.display = "none"
     }
 }
 
@@ -80,6 +81,7 @@ function maximizeProcess(pid) {
     const container = document.getElementById(`container-${pid}`);
     if (container) {
         container.style.width = '90vw';
+        container.style.textAlign = 'center';
         container.style.height = '100vh';
     }
 }
