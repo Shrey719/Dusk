@@ -81,6 +81,7 @@ function maximizeProcess(pid) {
     const container = document.getElementById(`container-${pid}`);
     if (container) {
         // keep the dimensions for unfullscreening and probably other stuff later
+        // like maybe crash restoration? probably not lmao
         container.dataset.originalStyle = container.getAttribute('style');
 
         container.style.width = "100vw";

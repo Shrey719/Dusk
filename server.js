@@ -21,6 +21,9 @@ app.get('/', (_req, res) => {
 app.get('/sh', (_req, res) => {
   res.sendFile(path.resolve('dist/apps','sh.html'))
 })
+app.get('/fman', (_req, res) => {
+  res.sendFile(path.resolve('dist/apps','filemanager.html'))
+})
 httpServer.on('request', (req, res) => {
   app(req, res)
 })

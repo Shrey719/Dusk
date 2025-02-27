@@ -2,13 +2,17 @@ if (localStorage.getItem('appList') === null) {
     localStorage.setItem('appList', JSON.stringify([{
         name: 'Terminal',
         icon: '/img/sh.svg',
-        code: `<html><body><iframe src="/sh" height="100%" width="100%" style="border: none; margin: 0; padding: 0;"></iframe><body><head>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    border: none;
-                }
-        </head></html>`
+        code: `<html><body><iframe src="/sh" height="100%" width="100%" style="border: none; margin: 0; padding: 0;" class="shf"></iframe><body><head><style>
+            * {
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            .shf {
+                overflow: hidden;
+            }
+            
+                </style></head></html>`
     }]));
 }
 
@@ -39,10 +43,8 @@ function pushApp(name, icon, code) {
 window.initStartMenu = function() {
     const startMenuApps = document.getElementById('startMenuApps');
     if (startMenuApps) {
-        startMenuApps.innerHTML = ''; // Clear existing apps
+        startMenuApps.innerHTML = ''; //... yes
         let appList = JSON.parse(localStorage.getItem('appList'));
-        
-        // Add CSS for start menu apps
         const style = document.createElement('style');
         style.textContent = `
             .start-menu-app {
