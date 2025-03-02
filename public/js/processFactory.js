@@ -30,9 +30,8 @@ function createHandle(pid) {
     const closeBtn = createButton('x', () => killProcess(pid));
     const maxBtn = createButton('+', () => maximizeProcess(pid));
 
-    handle.height = closeBtn.height = minBtn.height = maxBtn.height = '2vh';
+    handle.height = closeBtn.height = maxBtn.height = '2vh';
     handle.appendChild(closeBtn);
-    handle.appendChild(minBtn);
     handle.appendChild(maxBtn);
 
     return handle;
