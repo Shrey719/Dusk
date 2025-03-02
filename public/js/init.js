@@ -15,7 +15,7 @@ if (localStorage.getItem('appList') === null) {
                 </style></head></html>`
     }]));
 }
-
+// qhar
 window.$dusk = {
     globalPid: 0
 }
@@ -36,7 +36,7 @@ function pushApp(name, icon, code) {
 
     app.appendChild(iconElement);
     app.appendChild(nameElement);
-
+                                                    // ah yes, the classic
     app.addEventListener('click', () => createProcess(code, window.$dusk.globalPid++));
     document.getElementById('startMenuApps').appendChild(app);
 }

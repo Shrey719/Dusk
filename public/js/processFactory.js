@@ -28,7 +28,6 @@ function createHandle(pid) {
     handle.style.userSelect = 'none';
 
     const closeBtn = createButton('x', () => killProcess(pid));
-    const minBtn = createButton('-', () => minimizeProcess(pid));
     const maxBtn = createButton('+', () => maximizeProcess(pid));
 
     handle.height = closeBtn.height = minBtn.height = maxBtn.height = '2vh';
@@ -43,6 +42,7 @@ function createHandle(pid) {
 function createButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
+    button.classList.add('appGUIHeaderButton');
     button.style.backgroundColor = 'transparent';
     button.onclick = onClick;
     return button;
@@ -67,13 +67,6 @@ function killProcess(pid) {
         container.remove();
     } else {
         console.log(`Process with pid ${pid} does not exist.`);
-    }
-}
-
-function minimizeProcess(pid) {
-    const container = document.getElementById(`container-${pid}`);
-    if (container) {
-        container.style.display = "none"
     }
 }
 
@@ -134,7 +127,9 @@ function makeDraggable(element, handle) {
     handle.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
-        e = e || window.event;
+        e = e || window.event; // for those ie6 users or something idfk
+        // its very laggy
+        // im not gonna fix it
         e.preventDefault();
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -144,7 +139,7 @@ function makeDraggable(element, handle) {
 
     function elementDrag(e) {
         e.preventDefault();
-        pos1 = pos3 - e.clientX;
+        pos1 = pos3 - e.clientX; // minor fuckery
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -153,7 +148,6 @@ function makeDraggable(element, handle) {
     }
 
     function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+        document.onmouseup = document.onmousemove = null;
     }
 }
