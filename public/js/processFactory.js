@@ -117,6 +117,7 @@ function restoreProcess(pid) {
         container.setAttribute('style', container.dataset.originalStyle);
         delete container.dataset.originalStyle;
     }
+    makeDraggable(container, container.querySelector('div')); // ah yes, the wonderful method of "if another div gets added we get fucked" im not changing it lol
 }
 
 
